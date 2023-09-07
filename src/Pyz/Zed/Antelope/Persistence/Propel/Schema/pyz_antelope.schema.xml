@@ -3,7 +3,7 @@
           xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
           namespace="Orm\Zed\Antelope\Persistence" package="src.Orm.Zed.Antelope.Persistence">
 
-    <table name="antelopes" idMethod="native">
+    <table name="pyz_antelope" allowPkInsert="true" idMethod="native" phpName="PyzAntelope">
         <column name="id" type="INTEGER" required="true" primaryKey="true" autoIncrement="true"/>
         <column name="name" type="VARCHAR" required="true"/>
         <column name="type_id" type="INTEGER" required="true"/>

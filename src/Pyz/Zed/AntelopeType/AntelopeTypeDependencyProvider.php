@@ -1,10 +1,16 @@
 <?php
 
-declare(strict_types = 1);
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
 
 namespace Pyz\Zed\AntelopeType;
 
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
+use Spryker\Zed\Kernel\Container;
 
 /**
  * @method \Pyz\Zed\AntelopeType\AntelopeTypeConfig getConfig()

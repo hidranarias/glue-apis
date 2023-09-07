@@ -7,6 +7,9 @@
 
 namespace Pyz\Zed\DataImport;
 
+use Pyz\Zed\AntelopeDataImport\Communication\Plugin\AntelopeDataImportPlugin;
+use Pyz\Zed\AntelopeLocationDataImport\Communication\Plugin\AntelopeLocationDataImportPlugin;
+use Pyz\Zed\AntelopeTypeDataImport\Communication\Plugin\AntelopeTypeDataImportPlugin;
 use Spryker\Zed\CategoryDataImport\Communication\Plugin\CategoryDataImportPlugin;
 use Spryker\Zed\CategoryDataImport\Communication\Plugin\DataImport\CategoryStoreDataImportPlugin;
 use Spryker\Zed\CmsPageDataImport\Communication\Plugin\CmsPageDataImportPlugin;
@@ -171,10 +174,10 @@ class DataImportDependencyProvider extends SprykerDataImportDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addProductSearchFacade(Container $container): Container
+    protected function addProductRelationFacade(Container $container): Container
     {
-        $container->set(static::FACADE_PRODUCT_SEARCH, function (Container $container) {
-            return $container->getLocator()->productSearch()->facade();
+        $container->set(static::FACADE_PRODUCT_RELATION, function (Container $container) {
+            return $container->getLocator()->productRelation()->facade();
         });
 
         return $container;
@@ -185,10 +188,10 @@ class DataImportDependencyProvider extends SprykerDataImportDependencyProvider
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addProductRelationFacade(Container $container): Container
+    protected function addProductSearchFacade(Container $container): Container
     {
-        $container->set(static::FACADE_PRODUCT_RELATION, function (Container $container) {
-            return $container->getLocator()->productRelation()->facade();
+        $container->set(static::FACADE_PRODUCT_SEARCH, function (Container $container) {
+            return $container->getLocator()->productSearch()->facade();
         });
 
         return $container;
@@ -256,6 +259,9 @@ class DataImportDependencyProvider extends SprykerDataImportDependencyProvider
     protected function getDataImporterPlugins(): array
     {
         return [
+            new AntelopeTypeDataImportPlugin(),
+            new AntelopeLocationDataImportPlugin(),
+            new AntelopeDataImportPlugin(),
             new StoreDataImportPlugin(),
             new CountryStoreDataImportPlugin(),
             new CurrencyStoreDataImportPlugin(),

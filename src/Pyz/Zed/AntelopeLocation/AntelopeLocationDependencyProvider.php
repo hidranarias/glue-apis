@@ -1,10 +1,16 @@
 <?php
 
-declare(strict_types = 1);
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
 
 namespace Pyz\Zed\AntelopeLocation;
 
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
+use Spryker\Zed\Kernel\Container;
 
 /**
  * @method \Pyz\Zed\AntelopeLocation\AntelopeLocationConfig getConfig()
@@ -12,9 +18,9 @@ use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 class AntelopeLocationDependencyProvider extends AbstractBundleDependencyProvider
 {
     /**
-     * @param \Spryker\Zed\Kernel\Container $container
+     * @param \Pyz\Zed\AntelopeLocation\Spryker\Zed\Kernel\Container $container
      *
-     * @return \Spryker\Zed\Kernel\Container
+     * @return \Pyz\Zed\AntelopeLocation\Spryker\Zed\Kernel\Container
      */
     public function provideCommunicationLayerDependencies(Container $container): Container
     {

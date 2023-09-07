@@ -1,20 +1,45 @@
-# Create directories for DataImportStep in AntelopeDataImport
-mkdir -p src/Pyz/Zed/AntelopeDataImport/Business/DataImportStep
+<?php
 
-# Create Writer and Interface files for AntelopeDataImport
-touch src/Pyz/Zed/AntelopeDataImport/Business/DataImportStep/AntelopeWriterStep.php
-touch src/Pyz/Zed/AntelopeDataImport/Business/DataImportStep/AntelopeDataSetInterface.php
+/**
+ * This file is part of the Spryker Commerce OS.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
 
-# Create directories for DataImportStep in AntelopeTypeDataImport
-mkdir -p src/Pyz/Zed/AntelopeTypeDataImport/Business/DataImportStep
+namespace Pyz\Zed\AntelopeDataImport\Business\DataImportStep;
 
-# Create Writer and Interface files for AntelopeTypeDataImport
-touch src/Pyz/Zed/AntelopeTypeDataImport/Business/DataImportStep/AntelopeTypeWriterStep.php
-touch src/Pyz/Zed/AntelopeTypeDataImport/Business/DataImportStep/AntelopeTypeDataSetInterface.php
+use Orm\Zed\Antelope\Persistence\PyzAntelopeQuery;
+use Pyz\Zed\AntelopeDataImport\Business\DataSet\AntelopeDataSetInterface;
+use Spryker\Zed\DataImport\Business\Model\DataImportStep\DataImportStepInterface;
+use Spryker\Zed\DataImport\Business\Model\DataImportStep\PublishAwareStep;
+use Spryker\Zed\DataImport\Business\Model\DataSet\DataSetInterface;
 
-# Create directories for DataImportStep in AntelopeLocationDataImport
-mkdir -p src/Pyz/Zed/AntelopeLocationDataImport/Business/DataImportStep
+class AntelopeWriterStep extends PublishAwareStep implements DataImportStepInterface, AntelopeWriterStepInterface
+{
+    /**
+     * @return void
+     */
+    public function execute(DataSetInterface $dataSet): void
+    {
+        $antelopeEntity = PyzAntelopeQuery::create();
+        $name = $dataSet[AntelopeDataSetInterface::COLUMN_NAME];
+        $color = trim($dataSet[AntelopeDataSetInterface::COLUMN_COLOR]);
+        $typeId = (int)$dataSet[AntelopeDataSetInterface::COLUMN_TYPE_ID];
+        $locationId = (int)$dataSet[AntelopeDataSetInterface::COLUMN_LOCATION_ID];
+        $age = (int)$dataSet[AntelopeDataSetInterface::COLUMN_AGE];
+        $weight = (float)$dataSet[AntelopeDataSetInterface::COLUMN_WEIGHT];
+        $gender = $dataSet[AntelopeDataSetInterface::COLUM_GENDER];
 
-# Create Writer and Interface files for AntelopeLocationDataImport
-touch src/Pyz/Zed/AntelopeLocationDataImport/Business/DataImportStep/AntelopeLocationWriterStep.php
-touch src/Pyz/Zed/AntelopeLocationDataImport/Business/DataImportStep/AntelopeLocationDataSetInterface.php
+        $antelope = $antelopeEntity->filterByName($name)
+            ->findOneOrCreate();
+
+        if ($antelope->isNew() || $antelope->isModified()) {
+            $antelope->setColor($color);
+            $antelope->setTypeId($typeId);
+            $antelope->setLocationId($locationId);
+            $antelope->setAge($age);
+            $antelope->setWeight($weight);
+            $antelope->setGender($gender);
+            $antelope->save();
+        }
+    }
+}

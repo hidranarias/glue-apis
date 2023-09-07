@@ -14,11 +14,13 @@
         <column name="created_at" type="TIMESTAMP" required="true"/>
         <column name="updated_at" type="TIMESTAMP"/>
 
-        <foreign-key foreignTable="antelope_types">
+
+
+        <foreign-key name="pyz_antelope-fk_antelope_type" foreignTable="pyz_antelope_type"  onDelete="CASCADE">
             <reference local="type_id" foreign="id"/>
         </foreign-key>
 
-        <foreign-key foreignTable="locations">
+        <foreign-key foreignTable="pyz_antelope_location">
             <reference local="location_id" foreign="id"/>
         </foreign-key>
 

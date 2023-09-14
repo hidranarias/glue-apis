@@ -23,11 +23,11 @@ class AntelopeFacade extends AbstractFacade implements AntelopeFacadeInterface
     /**
      * {@inheritDoc}
      *
-     * @api
-     *
      * @param \Generated\Shared\Transfer\AntelopeTransfer $antelopeTransfer
      *
      * @return \Generated\Shared\Transfer\AntelopeTransfer
+     * @api
+     *
      */
     public function createAntelope(AntelopeTransfer $antelopeTransfer): AntelopeTransfer
     {
@@ -41,9 +41,9 @@ class AntelopeFacade extends AbstractFacade implements AntelopeFacadeInterface
         return $this->getFactory()->createAntelopeWriter()->deleteAntelope($antelopeTransfer);
     }
 
-    public function findAntelope(AntelopeTransfer $antelopeTransfer): ?AntelopeTransfer
+    public function findAntelope(AntelopeCriteriaTransfer $antelopeCriteriaTransfer): ?AntelopeTransfer
     {
-        return $this->getFactory()->createAntelopeReader()->findAntelope($antelopeTransfer);
+        return $this->getFactory()->createAntelopeReader()->findAntelope($antelopeCriteriaTransfer);
     }
 
     /**

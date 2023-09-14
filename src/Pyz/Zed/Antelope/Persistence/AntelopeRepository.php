@@ -21,12 +21,17 @@ class AntelopeRepository extends AbstractRepository implements AntelopeRepositor
     public function findAntelope(AntelopeCriteriaTransfer $antelopeCriteriaTransfer): ?AntelopeTransfer
     {
         $antelopeQuery = $this->getFactory()->createAntelopeQuery();
-        $antelopeEntity = $antelopeQuery->filterByName($antelopeCriteriaTransfer->getName())->findOne();
+        if ($antelopeCriteriaTransfer->getIdAntelope()) {
+            $antelopeEntity = $antelopeQuery->filterByIdantelope($antelopeCriteriaTransfer->getIdAntelope())->findOne();
+        } else {
+            $antelopeEntity = $antelopeQuery->filterByName($antelopeCriteriaTransfer->getName())->findOne();
+        }
+
         if (!$antelopeEntity) {
             return null;
         }
 
-        return (new AntelopeTransfer())->fromArray($antelopeEntity->toArray());
+        return (new AntelopeTransfer())->fromArray($antelopeEntity->toArray(), true);
     }
 
     /**

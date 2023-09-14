@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Pyz\Zed\Antelope\Business;
 
+use Generated\Shared\Transfer\AntelopeCriteriaTransfer;
 use Generated\Shared\Transfer\AntelopeTransfer;
 
 interface AntelopeFacadeInterface
@@ -17,5 +18,5 @@ interface AntelopeFacadeInterface
 
     public function deleteAntelope(AntelopeTransfer $antelopeTransfer): bool;
 
-    public function findAntelope(AntelopeTransfer $antelopeTransfer): ?AntelopeTransfer;
+    public function findAntelope(AntelopeCriteriaTransfer $antelopeTransfer): ?AntelopeTransfer;
 }
